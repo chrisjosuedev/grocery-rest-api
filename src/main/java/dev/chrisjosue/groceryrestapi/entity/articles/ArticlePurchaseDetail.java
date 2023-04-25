@@ -12,8 +12,11 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@IdClass(PurchaseDetailPK.class)
 public class ArticlePurchaseDetail {
+
+    @EmbeddedId
+    private PurchaseDetailPK id;
+
     @PositiveOrZero(message = "Amount must be greater or equal to zero.")
     @NotNull(message = "Amount is required.")
     private int amount;
@@ -21,13 +24,14 @@ public class ArticlePurchaseDetail {
     @PositiveOrZero(message = "Price must be greater or equal to zero.")
     @NotNull(message = "Price is required.")
     private double price;
-    @Id
+
     @ManyToOne(optional = false)
     @JoinColumn(name = "article_purchase_id")
+    @MapsId("articlePurchaseId")
     private ArticlePurchase articlePurchase;
 
-    @Id
     @ManyToOne(optional = false)
     @JoinColumn(name = "article_id")
+    @MapsId("articleId")
     private Article article;
 }

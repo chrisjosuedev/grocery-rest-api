@@ -1,6 +1,7 @@
 package dev.chrisjosue.groceryrestapi.entity.articles;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import dev.chrisjosue.groceryrestapi.entity.persons.Employee;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
@@ -27,6 +28,7 @@ public class Article {
     @PositiveOrZero(message = "Unit price must be greater or equal to zero.")
     private double unitPrice;
 
+    @Column(name = "is_active")
     private boolean isActive = true;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -38,4 +40,8 @@ public class Article {
     @JoinColumn(name = "type_id")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Type type;
+
+    @OneToOne
+    @JoinColumn(name = "employee_id")
+    private Employee employee;
 }

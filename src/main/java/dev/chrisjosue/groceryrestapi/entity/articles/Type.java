@@ -1,5 +1,6 @@
 package dev.chrisjosue.groceryrestapi.entity.articles;
 
+import dev.chrisjosue.groceryrestapi.entity.persons.Employee;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -21,8 +22,13 @@ public class Type {
     @NotBlank(message = "Type is required.")
     private String type;
 
+    @Column(name = "is_active")
     private boolean isActive = true;
 
     @OneToMany(mappedBy = "type", cascade = CascadeType.ALL)
     private List<Article> articles;
+
+    @OneToOne
+    @JoinColumn(name = "employee_id")
+    private Employee employee;
 }

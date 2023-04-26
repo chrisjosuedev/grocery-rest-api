@@ -13,7 +13,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ArticlePurchaseDetail {
-
     @EmbeddedId
     private PurchaseDetailPK id;
 
@@ -26,12 +25,12 @@ public class ArticlePurchaseDetail {
     private double price;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "article_purchase_id")
     @MapsId("articlePurchaseId")
+    @JoinColumn(name = "article_purchase_id")
     private ArticlePurchase articlePurchase;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "article_id")
     @MapsId("articleId")
+    @JoinColumn(name = "article_id")
     private Article article;
 }

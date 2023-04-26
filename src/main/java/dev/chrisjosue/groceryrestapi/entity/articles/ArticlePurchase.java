@@ -1,5 +1,6 @@
 package dev.chrisjosue.groceryrestapi.entity.articles;
 
+import dev.chrisjosue.groceryrestapi.entity.persons.Employee;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -33,9 +34,7 @@ public class ArticlePurchase {
     @JoinColumn(name = "supplier_id")
     private Supplier supplier;
 
-    /**
-     * TODO:
-     * @OneToOne Relation with Employee
-     */
-
+    @OneToOne
+    @JoinColumn(name = "employee_id")
+    private Employee employee;
 }

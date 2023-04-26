@@ -8,7 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "supplier")
+@Table(name = "suppliers")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -28,5 +28,7 @@ public class Supplier {
      * Validation with Twilio
      */
     private String phone;
+
+    @Column(name = "is_active")
     private boolean isActive = true;
 }

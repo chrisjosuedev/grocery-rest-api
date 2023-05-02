@@ -1,9 +1,10 @@
 package dev.chrisjosue.groceryrestapi.entity.person;
 
+import dev.chrisjosue.groceryrestapi.utils.validations.password.Password;
+import dev.chrisjosue.groceryrestapi.utils.validations.username.Username;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.PastOrPresent;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -29,24 +30,13 @@ public class Employee extends Person {
     private String email;
 
     @Column(unique = true)
-    @NotBlank(message = "Username is required.")
-    /**
-     * TODO:
-     * @Username custom annotation.
-     */
+    @Username(message = "Username is invalid", min = 10)
     private String username;
 
-    @NotEmpty(message = "Password is required.")
-    /**
-     * TODO:
-     * @Password custom annotation.
-     */
-    private char[] password;
+    @Password(message = "Password is not valid.")
+    private String password;
 
-    /**
-     * TODO:
-     * private String role;
-     */
+    private String role;
 
     @Column(name = "hire_date")
     @Temporal(TemporalType.DATE)

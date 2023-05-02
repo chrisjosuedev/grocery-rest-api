@@ -1,6 +1,7 @@
 package dev.chrisjosue.groceryrestapi.entity.person;
 
 import dev.chrisjosue.groceryrestapi.entity.address.Address;
+import dev.chrisjosue.groceryrestapi.utils.validations.phone.Phone;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -28,12 +29,8 @@ public abstract class Person {
     @NotNull(message = "Genre is required.")
     private boolean genre;
 
-    /**
-     * TODO:
-     * @Phone annotation
-     * Validation with Twilio.
-     */
     @NotBlank(message = "Phone is required.")
+    @Phone(message = "Phone is invalid.")
     private String phone;
 
     private boolean type;

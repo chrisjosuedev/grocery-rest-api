@@ -1,4 +1,4 @@
-package dev.chrisjosue.groceryrestapi.entity.articles;
+package dev.chrisjosue.groceryrestapi.entity.invoice;
 
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
@@ -13,7 +13,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Data
 @EqualsAndHashCode
-public class PurchaseDetailPK implements Serializable {
-    private Long articlePurchaseId;
+public class InvoiceDetailPK implements Serializable {
+    private Long invoiceId;
     private Long articleId;
 }

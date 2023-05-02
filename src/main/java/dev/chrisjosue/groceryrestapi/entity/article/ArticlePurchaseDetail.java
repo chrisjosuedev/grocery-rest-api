@@ -1,5 +1,6 @@
-package dev.chrisjosue.groceryrestapi.entity.articles;
+package dev.chrisjosue.groceryrestapi.entity.article;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
@@ -18,12 +19,13 @@ public class ArticlePurchaseDetail {
 
     @PositiveOrZero(message = "Amount must be greater or equal to zero.")
     @NotNull(message = "Amount is required.")
-    private int amount;
+    private Integer amount;
 
     @PositiveOrZero(message = "Price must be greater or equal to zero.")
     @NotNull(message = "Price is required.")
-    private double price;
+    private Double price;
 
+    @JsonManagedReference
     @ManyToOne(optional = false)
     @MapsId("articlePurchaseId")
     @JoinColumn(name = "article_purchase_id")

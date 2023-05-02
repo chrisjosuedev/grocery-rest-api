@@ -1,4 +1,4 @@
-package dev.chrisjosue.groceryrestapi.entity.articles;
+package dev.chrisjosue.groceryrestapi.entity.article;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;

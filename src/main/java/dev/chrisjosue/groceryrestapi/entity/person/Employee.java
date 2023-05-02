@@ -1,4 +1,4 @@
-package dev.chrisjosue.groceryrestapi.entity.persons;
+package dev.chrisjosue.groceryrestapi.entity.person;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -55,4 +55,8 @@ public class Employee extends Person {
 
     @Column(name = "is_active")
     private boolean isActive;
+
+    @OneToOne
+    @JoinColumn(name = "position_id")
+    private JobPosition jobPosition;
 }

@@ -1,7 +1,9 @@
-package dev.chrisjosue.groceryrestapi.entity.persons;
+package dev.chrisjosue.groceryrestapi.entity.person;
 
+import dev.chrisjosue.groceryrestapi.entity.address.Address;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Entity
@@ -23,12 +25,8 @@ public abstract class Person {
     @Column(name = "last_name")
     private String lastName;
 
-    /**
-     * TODO:
-     * Validate with @Genre or Service Layer
-     */
-    @NotBlank(message = "Genre is required;")
-    private String genre;
+    @NotNull(message = "Genre is required.")
+    private boolean genre;
 
     /**
      * TODO:
@@ -42,4 +40,8 @@ public abstract class Person {
 
     @Column(name = "is_active")
     private boolean isActive;
+
+    @OneToOne
+    @JoinColumn(name = "address_id")
+    private Address address;
 }

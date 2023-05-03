@@ -1,6 +1,5 @@
 package dev.chrisjosue.groceryrestapi.entity.person;
 
-import dev.chrisjosue.groceryrestapi.entity.address.Address;
 import dev.chrisjosue.groceryrestapi.utils.validations.phone.Phone;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -37,8 +36,4 @@ public abstract class Person {
 
     @Column(name = "is_active", columnDefinition = "boolean default true")
     private Boolean isActive;
-
-    @OneToOne
-    @JoinColumn(name = "address_id")
-    private Address address;
 }

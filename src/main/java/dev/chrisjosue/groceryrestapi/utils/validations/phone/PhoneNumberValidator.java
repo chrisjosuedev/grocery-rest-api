@@ -9,10 +9,10 @@ import org.springframework.beans.factory.annotation.Value;
 
 public class PhoneNumberValidator implements ConstraintValidator<Phone, String> {
 
-    @Value("${env.TWILIO_ACCOUNT_SID}")
+    @Value("${TWILIO_ACCOUNT_SID}")
     private String twilioAccountSid;
 
-    @Value("${env.TWILIO_AUTH_TOKEN}")
+    @Value("${TWILIO_AUTH_TOKEN}")
     private String twilioAuthToken;
 
     @Override

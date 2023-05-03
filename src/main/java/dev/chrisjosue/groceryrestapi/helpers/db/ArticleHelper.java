@@ -40,8 +40,9 @@ public class ArticleHelper {
     }
 
     /**
-     * Build a Article from ArticleDTO
+     * Build an Article from ArticleDTO
      * @Params productDTO
+     * @Return Article Built.
      */
     public Article articleFromDto(ArticleDto articleDto) {
         return Article.builder()

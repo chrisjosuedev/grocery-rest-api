@@ -16,7 +16,8 @@ public class ExpirationPassword {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private boolean updated;
+    @Column(columnDefinition = "boolean default false")
+    private Boolean updated;
 
     @OneToOne
     @JoinColumn(name = "employee_id")

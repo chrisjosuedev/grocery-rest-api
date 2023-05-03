@@ -37,4 +37,7 @@ public class Address {
     @Column(name = "zip_code")
     @NotBlank(message = "Zip Code is required.")
     private String zipCode;
+
+    @Column(name = "is_active", columnDefinition = "boolean default true")
+    private Boolean isActive;
 }

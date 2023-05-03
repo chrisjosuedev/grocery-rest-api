@@ -35,8 +35,8 @@ public abstract class Person {
 
     private boolean type;
 
-    @Column(name = "is_active")
-    private boolean isActive;
+    @Column(name = "is_active", columnDefinition = "boolean default true")
+    private Boolean isActive;
 
     @OneToOne
     @JoinColumn(name = "address_id")

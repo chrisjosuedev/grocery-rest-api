@@ -43,10 +43,6 @@ public class Employee extends Person {
     @PastOrPresent(message = "Date is invalid, must be Present or Past.")
     private Date hireDate;
 
-    @Column(name = "is_active")
-    private boolean isActive;
-
-    @OneToOne
-    @JoinColumn(name = "position_id")
-    private JobPosition jobPosition;
+    @Column(name = "is_active", columnDefinition = "boolean default true")
+    private Boolean isActive;
 }

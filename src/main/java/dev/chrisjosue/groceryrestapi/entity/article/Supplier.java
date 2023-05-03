@@ -1,5 +1,6 @@
 package dev.chrisjosue.groceryrestapi.entity.article;
 
+import dev.chrisjosue.groceryrestapi.utils.validations.phone.Phone;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -22,13 +23,9 @@ public class Supplier {
     private String email;
 
     @NotBlank(message = "Phone is required.")
-    /**
-     * TODO:
-     * @Phone Annotation
-     * Validation with Twilio
-     */
+    @Phone(message = "Phone is invalid.")
     private String phone;
 
-    @Column(name = "is_active")
-    private boolean isActive = true;
+    @Column(name = "is_active", columnDefinition = "boolean default true")
+    private Boolean isActive;
 }

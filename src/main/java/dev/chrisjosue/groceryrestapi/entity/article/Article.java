@@ -33,6 +33,6 @@ public class Article {
     @PositiveOrZero(message = "Unit price must be greater or equal to zero.")
     private Double unitPrice;
 
-    @Column(name = "is_active", columnDefinition = "boolean default true")
-    private Boolean isActive;
+    @Column(name = "is_enabled", columnDefinition = "boolean default true")
+    private Boolean isEnabled;
 }

@@ -1,6 +1,6 @@
 package dev.chrisjosue.groceryrestapi.helpers.db;
 
-import dev.chrisjosue.groceryrestapi.dto.models.article.ArticleDto;
+import dev.chrisjosue.groceryrestapi.dto.requests.article.ArticleDto;
 import dev.chrisjosue.groceryrestapi.entity.article.Article;
 import dev.chrisjosue.groceryrestapi.repository.ArticleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +49,7 @@ public class ArticleHelper {
                 .articleName(articleDto.getArticleName())
                 .description(articleDto.getDescription())
                 .unitPrice(articleDto.getUnitPrice())
-                .isActive(true)
+                .isEnabled(true)
                 .build();
     }
 }

@@ -1,6 +1,6 @@
 package dev.chrisjosue.groceryrestapi.controllers;
 
-import dev.chrisjosue.groceryrestapi.dto.models.article.ArticleDto;
+import dev.chrisjosue.groceryrestapi.dto.requests.article.ArticleDto;
 import dev.chrisjosue.groceryrestapi.dto.responses.ResponseDataDto;
 import dev.chrisjosue.groceryrestapi.dto.responses.ResponseHandler;
 import dev.chrisjosue.groceryrestapi.entity.article.Article;

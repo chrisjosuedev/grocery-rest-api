@@ -1,20 +1,19 @@
-package dev.chrisjosue.groceryrestapi.entity.person;
+package dev.chrisjosue.groceryrestapi.dto.requests.person;
 
 import dev.chrisjosue.groceryrestapi.utils.validations.phone.Phone;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Entity
-@Table(name = "persons")
 @Data
-@Inheritance(strategy = InheritanceType.JOINED)
-public class Person {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+public class PersonDto {
     @Column(unique = true)
     @NotBlank(message = "DNI is required.")
     private String dni;
@@ -31,9 +30,4 @@ public class Person {
     @NotBlank(message = "Phone is required.")
     @Phone(message = "Phone is invalid.")
     private String phone;
-
-    private boolean type;
-
-    @Column(name = "is_enabled", columnDefinition = "boolean default true")
-    private Boolean isEnabled;
 }

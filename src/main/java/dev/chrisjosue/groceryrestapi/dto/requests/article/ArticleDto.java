@@ -1,4 +1,4 @@
-package dev.chrisjosue.groceryrestapi.dto.models.article;
+package dev.chrisjosue.groceryrestapi.dto.requests.article;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;

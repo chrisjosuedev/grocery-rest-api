@@ -1,6 +1,6 @@
 package dev.chrisjosue.groceryrestapi.service;
 
-import dev.chrisjosue.groceryrestapi.dto.models.article.ArticleDto;
+import dev.chrisjosue.groceryrestapi.dto.requests.article.ArticleDto;
 import dev.chrisjosue.groceryrestapi.entity.article.Article;
 
 import java.util.List;

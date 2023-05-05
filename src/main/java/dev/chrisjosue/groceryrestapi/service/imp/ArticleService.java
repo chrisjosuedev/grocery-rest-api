@@ -1,6 +1,6 @@
 package dev.chrisjosue.groceryrestapi.service.imp;
 
-import dev.chrisjosue.groceryrestapi.dto.models.article.ArticleDto;
+import dev.chrisjosue.groceryrestapi.dto.requests.article.ArticleDto;
 import dev.chrisjosue.groceryrestapi.entity.article.Article;
 import dev.chrisjosue.groceryrestapi.helpers.db.ArticleHelper;
 import dev.chrisjosue.groceryrestapi.repository.ArticleRepository;
@@ -76,7 +76,7 @@ public class ArticleService implements IArticleService {
         if (articleFound == null)
             throw new MyBusinessException("Article not found with given id.", HttpStatus.NOT_FOUND);
 
-        articleFound.setIsActive(false);
+        articleFound.setIsEnabled(false);
         articleRepository.save(articleFound);
     }
 }

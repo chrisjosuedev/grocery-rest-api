@@ -8,6 +8,7 @@ import dev.chrisjosue.groceryrestapi.service.IArticleService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Positive;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,13 +21,9 @@ import java.util.List;
 @RestController
 @Validated
 @RequestMapping("/articles")
+@RequiredArgsConstructor
 public class ArticleController {
-    private IArticleService articleService;
-
-    @Autowired
-    public ArticleController(IArticleService articleService) {
-        this.articleService = articleService;
-    }
+    private final IArticleService articleService;
 
     @GetMapping
     public ResponseEntity<Object> findAllArticles(

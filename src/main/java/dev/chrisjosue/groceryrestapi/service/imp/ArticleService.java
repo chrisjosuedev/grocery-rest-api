@@ -6,7 +6,7 @@ import dev.chrisjosue.groceryrestapi.helpers.db.ArticleHelper;
 import dev.chrisjosue.groceryrestapi.repository.ArticleRepository;
 import dev.chrisjosue.groceryrestapi.service.IArticleService;
 import dev.chrisjosue.groceryrestapi.utils.exceptions.MyBusinessException;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -14,23 +14,18 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class ArticleService implements IArticleService {
-    private ArticleRepository articleRepository;
-    private ArticleHelper articleHelper;
-
-    @Autowired
-    public ArticleService(ArticleRepository articleRepository, ArticleHelper articleHelper) {
-        this.articleRepository = articleRepository;
-        this.articleHelper = articleHelper;
-    }
+    private final ArticleRepository articleRepository;
+    private final ArticleHelper articleHelper;
 
     @Override
     public List<Article> findAll(Integer limit, Integer from) {
-        List<Article> allArticles = articleRepository.findAllByIsActiveIsTrue();
+        List<Article> allArticles = articleRepository.findAllByIsEnabledIsTrue();
 
         if (limit == null || from == null) return allArticles;
 
-        allArticles = articleRepository.findAllByIsActiveIsTrue(PageRequest.of(from, limit));
+        allArticles = articleRepository.findAllByIsEnabledIsTrue(PageRequest.of(from, limit));
         return allArticles;
     }
 

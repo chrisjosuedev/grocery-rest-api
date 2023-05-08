@@ -9,8 +9,8 @@ import java.util.Optional;
 
 @Repository
 public interface ArticleRepository extends JpaRepository<Article, Long> {
-    List<Article> findAllByIsActiveIsTrue();
-    List<Article> findAllByIsActiveIsTrue(Pageable pageable);
-    Optional<Article> findByIdAndIsActiveIsTrue(Long id);
+    List<Article> findAllByIsEnabledIsTrue();
+    List<Article> findAllByIsEnabledIsTrue(Pageable pageable);
+    Optional<Article> findByIdAndIsEnabledIsTrue(Long id);
     Optional<Article> findByArticleNameContainingIgnoreCase(String articleName);
 }

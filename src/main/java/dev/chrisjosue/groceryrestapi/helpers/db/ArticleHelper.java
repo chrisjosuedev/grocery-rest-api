@@ -3,19 +3,15 @@ package dev.chrisjosue.groceryrestapi.helpers.db;
 import dev.chrisjosue.groceryrestapi.dto.requests.article.ArticleDto;
 import dev.chrisjosue.groceryrestapi.entity.article.Article;
 import dev.chrisjosue.groceryrestapi.repository.ArticleRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
 @Component
+@RequiredArgsConstructor
 public class ArticleHelper {
-    private ArticleRepository articleRepository;
-
-    @Autowired
-    public ArticleHelper(ArticleRepository articleRepository) {
-        this.articleRepository = articleRepository;
-    }
+    private final ArticleRepository articleRepository;
 
     /**
      * Find Article By ID
@@ -24,7 +20,7 @@ public class ArticleHelper {
      */
 
     public Article findArticleById(Long id) {
-        Optional<Article> articleFound = articleRepository.findByIdAndIsActiveIsTrue(id);
+        Optional<Article> articleFound = articleRepository.findByIdAndIsEnabledIsTrue(id);
         return articleFound.orElse(null);
     }
 

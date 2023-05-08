@@ -21,7 +21,7 @@ public class AppConfig {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        return username -> employeeRepository.findByUsername(username)
+        return username -> employeeRepository.findByUsernameAndIsActiveIsTrue(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Username not found."));
     }
 

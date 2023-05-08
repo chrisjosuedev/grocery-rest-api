@@ -1,12 +1,9 @@
 package dev.chrisjosue.groceryrestapi.controllers;
 
-import dev.chrisjosue.groceryrestapi.dto.requests.auth.AuthDto;
-import dev.chrisjosue.groceryrestapi.dto.requests.person.EmployeeDto;
-import dev.chrisjosue.groceryrestapi.dto.responses.ResponseHandler;
+import dev.chrisjosue.groceryrestapi.dto.requests.auth.SignInDto;
 import dev.chrisjosue.groceryrestapi.service.IEmployeeService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,23 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class AuthenticationController {
 
-    private IEmployeeService employeeService;
-
-    @PostMapping("/register")
-    public ResponseEntity<Object> createEmployee(@Valid @RequestBody EmployeeDto employeeDto) {
-        return ResponseHandler.responseBuilder(
-                "Employee created and user assigned successfully.",
-                HttpStatus.CREATED,
-                employeeService.create(employeeDto)
-        );
-        /**
-         * TODO:
-         * Token
-         */
-    }
+    private final IEmployeeService employeeService;
 
     @PostMapping("/signin")
-    public ResponseEntity<Object> login(@Valid @RequestBody AuthDto authDto) {
+    public ResponseEntity<Object> login(@Valid @RequestBody SignInDto signInDto) {
         // some code...
         return null;
     }

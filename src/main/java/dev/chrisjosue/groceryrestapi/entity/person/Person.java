@@ -4,11 +4,15 @@ import dev.chrisjosue.groceryrestapi.utils.validations.phone.Phone;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.Data;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 @Entity
 @Table(name = "persons")
 @Data
+@SuperBuilder
+@AllArgsConstructor
+@NoArgsConstructor
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Person {
     @Id
@@ -34,6 +38,6 @@ public class Person {
 
     private boolean type;
 
-    @Column(name = "is_enabled", columnDefinition = "boolean default true")
-    private Boolean isEnabled;
+    @Column(name = "is_active", columnDefinition = "boolean default true")
+    private Boolean isActive;
 }

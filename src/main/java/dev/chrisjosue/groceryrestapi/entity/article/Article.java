@@ -26,7 +26,8 @@ public class Article {
     @NotBlank(message = "Description is required.")
     private String description;
 
-    private int stock = 0;
+    @Min(value = 0, message = "Stock must greater than 0.")
+    private int stock;
 
     @Column(name = "unit_price")
     @NotNull(message = "Unit price is required.")

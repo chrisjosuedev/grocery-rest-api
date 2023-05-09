@@ -1,5 +1,6 @@
 package dev.chrisjosue.groceryrestapi.entity.person;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import dev.chrisjosue.groceryrestapi.utils.validations.password.Password;
 import dev.chrisjosue.groceryrestapi.utils.validations.username.Username;
 import jakarta.persistence.*;
@@ -38,6 +39,7 @@ public class Employee extends Person implements UserDetails {
     private String username;
 
     @Password(message = "Password is not valid.")
+    @JsonIgnore
     private String password;
 
     @Enumerated(EnumType.STRING)
@@ -53,21 +55,25 @@ public class Employee extends Person implements UserDetails {
         return List.of(new SimpleGrantedAuthority(role.name()));
     }
 
+    @JsonIgnore
     @Override
     public boolean isAccountNonExpired() {
         return true;
     }
 
+    @JsonIgnore
     @Override
     public boolean isAccountNonLocked() {
         return true;
     }
 
+    @JsonIgnore
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
+    @JsonIgnore
     @Override
     public boolean isEnabled() {
         return true;

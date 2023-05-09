@@ -1,9 +1,11 @@
 package dev.chrisjosue.groceryrestapi.utils.exceptions;
 
 import dev.chrisjosue.groceryrestapi.dto.responses.ErrorDto;
+import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -11,9 +13,45 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestControllerAdvice
 public class ControllerAdvice {
+    /**
+     *
+     * @param ex Exception Custom
+     * @return Error in Array List
+     */
+    @ExceptionHandler(value = Exception.class)
+    public ResponseEntity<ErrorDto> exceptionHandler(Exception ex) {
+        List<String> listOfCustomErrors = new ArrayList<>();
+
+        listOfCustomErrors.add(ex.getMessage());
+        ErrorDto err = ErrorDto.builder()
+                .errors(listOfCustomErrors)
+                .httpStatus(HttpStatus.BAD_REQUEST)
+                .build();
+
+        return new ResponseEntity<>(err, err.getHttpStatus());
+    }
+
+    /**
+     *
+     * @param ex BadCredentialsException Custom
+     * @return Error in Array List
+     */
+    @ExceptionHandler(value = BadCredentialsException.class)
+    public ResponseEntity<ErrorDto> exceptionHandler(BadCredentialsException ex) {
+        List<String> listOfCustomErrors = new ArrayList<>();
+
+        listOfCustomErrors.add(ex.getMessage());
+        ErrorDto err = ErrorDto.builder()
+                .errors(listOfCustomErrors)
+                .httpStatus(HttpStatus.FORBIDDEN)
+                .build();
+
+        return new ResponseEntity<>(err, err.getHttpStatus());
+    }
 
     /**
      *
@@ -40,12 +78,13 @@ public class ControllerAdvice {
      */
     @ExceptionHandler(value = ConstraintViolationException.class)
     public ResponseEntity<ErrorDto> constraintExceptionHandler(ConstraintViolationException ex) {
-        List<String> listOfClientErrors = new ArrayList<>();
-        System.out.println(ex.getMessage());
-        listOfClientErrors.add(ex.getMessage().split(":")[1].trim());
+        List<String> listOfViolationExceptionErrors = ex.getConstraintViolations()
+                .stream()
+                .map(ConstraintViolation::getMessage)
+                .toList();
 
         ErrorDto err = ErrorDto.builder()
-                .errors(listOfClientErrors)
+                .errors(listOfViolationExceptionErrors)
                 .httpStatus(HttpStatus.BAD_REQUEST)
                 .build();
 

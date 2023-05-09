@@ -1,9 +1,11 @@
 package dev.chrisjosue.groceryrestapi.utils.validations.password;
 
+import dev.chrisjosue.groceryrestapi.helpers.patterns.MyUtils;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
 public class PasswordValidator implements ConstraintValidator<Password, String> {
+
     @Override
     public void initialize(Password constraintAnnotation) {
         ConstraintValidator.super.initialize(constraintAnnotation);
@@ -31,8 +33,9 @@ public class PasswordValidator implements ConstraintValidator<Password, String> 
         value = value.trim();
         return !value.contains(" ")
                 && value.length() >= 8
-                && !value.matches("[A-Za-z0-9]*")
+                && MyUtils.matchWithString(value, "[^a-zA-Z0-9]+")
                 && !value.equals(value.toLowerCase())
-                && value.matches(".*\\\\d.*");
+                && !MyUtils.matchWithString(value, ".*\\\\d+.*");
     }
+
 }

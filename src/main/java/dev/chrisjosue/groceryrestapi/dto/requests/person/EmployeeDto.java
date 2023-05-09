@@ -27,7 +27,7 @@ public class EmployeeDto extends PersonDto {
     @Username(message = "Username is invalid", min = 10)
     private String username;
 
-    @Password(message = "Password is not valid.")
+    @Password
     private String password;
 
     @Enumerated(EnumType.STRING)

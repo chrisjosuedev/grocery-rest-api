@@ -1,11 +1,12 @@
 package dev.chrisjosue.groceryrestapi.entity.person;
 
-import dev.chrisjosue.groceryrestapi.utils.validations.phone.Phone;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.validator.constraints.Length;
 
 @Entity
 @Table(name = "persons")
@@ -21,19 +22,22 @@ public class Person {
 
     @Column(unique = true)
     @NotBlank(message = "DNI is required.")
+    @Length(min = 13, max = 13, message = "DNI must be 13 characters length.")
+    @Pattern(regexp = "^[0-9]+$", message = "DNI is invalid.")
     private String dni;
 
     @Column(name = "first_name")
+    @NotBlank(message = "First Name is required.")
     private String firstName;
 
     @Column(name = "last_name")
+    @NotBlank(message = "First Name is required.")
     private String lastName;
 
     @NotNull(message = "Genre is required.")
     private boolean genre;
 
-    @NotBlank(message = "Phone is required.")
-    @Phone(message = "Phone is invalid.")
+    @NotNull(message = "Phone is required.")
     private String phone;
 
     private boolean type;

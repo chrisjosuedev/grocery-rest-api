@@ -19,7 +19,7 @@ public class EmployeeService implements IEmployeeService {
 
     @Override
     public Employee create(EmployeeDto employeeDto) {
-        if (employeeHelper.findEmployeeByUsernameOrEmail(employeeDto.getUsername(), employeeDto.getEmail()))
+        if (employeeHelper.employeeAlreadyExists(employeeDto.getDni(), employeeDto.getUsername(), employeeDto.getEmail()))
             throw new MyBusinessException("Already exists a Employee with given credentials", HttpStatus.BAD_REQUEST);
 
         Employee newEmployee = employeeHelper.employeeFromDto(employeeDto);

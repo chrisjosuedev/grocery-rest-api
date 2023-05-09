@@ -47,6 +47,7 @@ public class EmployeeHelper {
                 .hireDate(employeeDto.getHireDate())
                 .isActive(true)
                 .type(true)
+                .isPasswordUpdated(false)
                 .build();
     }
 

@@ -50,6 +50,9 @@ public class Employee extends Person implements UserDetails {
     @PastOrPresent(message = "Date is invalid, must be Present or Past.")
     private Date hireDate;
 
+    @Column(name = "is_password_updated", columnDefinition = "boolean default true")
+    private Boolean isPasswordUpdated;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));

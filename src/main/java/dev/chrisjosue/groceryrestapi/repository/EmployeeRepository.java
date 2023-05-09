@@ -8,7 +8,7 @@ import java.util.Optional;
 
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
-    Optional<Employee> findByUsernameAndIsActiveIsTrue(String username);
+    Optional<Employee> findByUsernameAndIsActiveIsTrueAndIsPasswordUpdatedIsTrue(String username);
 
     Optional<Employee> findByDniOrUsernameOrEmailAndIsActiveIsTrue(String dni, String username, String email);
 }

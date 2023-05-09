@@ -28,7 +28,8 @@ public class AuthService implements IAuthService {
                 )
         );
 
-        Employee employee = employeeRepository.findByUsernameAndIsActiveIsTrue(signInDto.getUsername())
+        Employee employee = employeeRepository
+                .findByUsernameAndIsActiveIsTrueAndIsPasswordUpdatedIsTrue(signInDto.getUsername())
                 .orElseThrow();
 
         return AuthResponse.builder()

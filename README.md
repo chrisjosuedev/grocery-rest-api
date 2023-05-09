@@ -2,5 +2,5 @@
 
 ✨ Rest API developed to Small Grocery Stores.
 
-## ER Diagram
+## General Database Diagram
 ![Database Relational Model](https://github.com/chrisjosuedev/my-assets/blob/main/db-diagrams/grocery-diagram-v2.png?raw=true)

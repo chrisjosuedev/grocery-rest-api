@@ -32,6 +32,7 @@ public class SecurityConfig {
                         .requestMatchers("/actuator/health").permitAll()
                         .requestMatchers("/auth/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/employees").hasAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/employees/**").hasAuthority("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .sessionManagement()

@@ -7,7 +7,10 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.PastOrPresent;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import java.util.Date;
@@ -17,16 +20,10 @@ import java.util.Date;
 @NoArgsConstructor
 @SuperBuilder
 @EqualsAndHashCode(callSuper = true)
-public class EmployeeDto extends PersonDto {
+public class EmployeeUpdateDto extends PersonUpdateDto {
     @NotBlank(message = "Email is required.")
     @Email(message = "Email is invalid.")
     private String email;
-
-    @Username(message = "Username is invalid", min = 10)
-    private String username;
-
-    @Password
-    private String password;
 
     @Enumerated(EnumType.STRING)
     private Role role;

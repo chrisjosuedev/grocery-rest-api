@@ -26,10 +26,6 @@ import java.util.List;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class Employee extends Person implements UserDetails {
-
-    @Column(name = "employee_code")
-    private String employeeCode;
-
     @Column(unique = true)
     @NotBlank(message = "Email is required.")
     @Email(message = "Email is invalid.")

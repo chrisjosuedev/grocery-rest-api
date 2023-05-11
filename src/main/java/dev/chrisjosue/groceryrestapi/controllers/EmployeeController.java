@@ -19,7 +19,7 @@ public class EmployeeController {
     @GetMapping
     public ResponseEntity<Object> findAllEmployees() {
         // ... some code
-        return null;
+        return new ResponseEntity<>("List of Employees!", HttpStatus.OK);
     }
 
     @PostMapping

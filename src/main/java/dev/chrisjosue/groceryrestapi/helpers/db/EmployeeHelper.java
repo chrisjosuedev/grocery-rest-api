@@ -45,9 +45,9 @@ public class EmployeeHelper {
                 .password(passwordEncoder.encode(employeeDto.getPassword()))
                 .role(employeeDto.getRole())
                 .hireDate(employeeDto.getHireDate())
+                .isPasswordUpdated(false)
                 .isActive(true)
                 .type(true)
-                .isPasswordUpdated(false)
                 .build();
     }
 

@@ -3,18 +3,22 @@ package dev.chrisjosue.groceryrestapi.service.imp;
 import dev.chrisjosue.groceryrestapi.dto.requests.auth.SignInDto;
 import dev.chrisjosue.groceryrestapi.dto.responses.AuthResponse;
 import dev.chrisjosue.groceryrestapi.entity.person.Employee;
+import dev.chrisjosue.groceryrestapi.helpers.db.TokenHelper;
 import dev.chrisjosue.groceryrestapi.repository.EmployeeRepository;
 import dev.chrisjosue.groceryrestapi.security.JwtService;
 import dev.chrisjosue.groceryrestapi.service.IAuthService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class AuthService implements IAuthService {
     private final JwtService jwtService;
+    private final TokenHelper tokenHelper;
     private final EmployeeRepository employeeRepository;
     private final AuthenticationManager authManager;
 
@@ -29,11 +33,20 @@ public class AuthService implements IAuthService {
         );
 
         Employee employee = employeeRepository
-                .findByUsernameAndIsActiveIsTrueAndIsPasswordUpdatedIsTrue(signInDto.getUsername())
+                .findByUsernameAndIsActiveIsTrue(signInDto.getUsername())
                 .orElseThrow();
 
+        // Generate JWT
+        String jwt = jwtService.generateToken(employee);
+
+        // Revoke Previous Tokens
+        tokenHelper.revokeAllUserTokens(employee);
+
+        // Save token
+        tokenHelper.saveToken(jwt, employee);
+
         return AuthResponse.builder()
-                .token(jwtService.generateToken(employee))
+                .token(jwt)
                 .build();
     }
 }

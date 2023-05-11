@@ -1,6 +1,7 @@
 package dev.chrisjosue.groceryrestapi.entity.person;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import dev.chrisjosue.groceryrestapi.entity.token.Token;
 import dev.chrisjosue.groceryrestapi.utils.validations.password.Password;
 import dev.chrisjosue.groceryrestapi.utils.validations.username.Username;
 import jakarta.persistence.*;
@@ -50,8 +51,12 @@ public class Employee extends Person implements UserDetails {
     @PastOrPresent(message = "Date is invalid, must be Present or Past.")
     private Date hireDate;
 
-    @Column(name = "is_password_updated", columnDefinition = "boolean default true")
+    @Column(name = "is_password_updated",  columnDefinition = "boolean default true")
     private Boolean isPasswordUpdated;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "employee")
+    private List<Token> tokens;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

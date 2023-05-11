@@ -22,7 +22,7 @@ public class AppConfig {
     @Bean
     public UserDetailsService userDetailsService() {
         return username -> employeeRepository
-                .findByUsernameAndIsActiveIsTrueAndIsPasswordUpdatedIsTrue(username)
+                .findByUsernameAndIsActiveIsTrue(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Username not found."));
     }
 

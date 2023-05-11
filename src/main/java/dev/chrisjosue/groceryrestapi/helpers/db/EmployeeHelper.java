@@ -28,6 +28,18 @@ public class EmployeeHelper {
     }
 
     /**
+     * Find If Employee Password is already updated.
+     * @Params Employee
+     * @Return Employee if password was updated, null otherwise.
+     */
+    public Employee isPasswordUpdated(String username) {
+        return employeeRepository
+                .findByUsernameAndIsActiveIsTrue(username)
+                .filter(Employee::getIsPasswordUpdated)
+                .orElse(null);
+    }
+
+    /**
      * Build an Employee from EmployeeDTO
      * @Params productDTO
      * @Return Article Built.

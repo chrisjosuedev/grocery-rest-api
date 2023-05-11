@@ -1,7 +1,8 @@
 package dev.chrisjosue.groceryrestapi.security;
 
-import dev.chrisjosue.groceryrestapi.entity.token.Token;
+import dev.chrisjosue.groceryrestapi.helpers.db.EmployeeHelper;
 import dev.chrisjosue.groceryrestapi.repository.TokenRepository;
+import dev.chrisjosue.groceryrestapi.utils.exceptions.PasswordNotUpdatedException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -17,13 +18,13 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
-import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;
+    private final EmployeeHelper employeeHelper;
     private final UserDetailsService userDetailsService;
     private final TokenRepository tokenRepository;
 
@@ -37,7 +38,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         final String username;
 
         // Verify if Authorization Token is valid (JWT within the header).
-
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
             return;
@@ -52,11 +52,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             // First, check credentials
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
 
-            // Second, verify if Token already exists and is expired or revoked.
+            // Second, Check if password is updated. If not, throws an Exception.
+            if (employeeHelper.isPasswordUpdated(userDetails.getUsername()) == null)
+                throw new PasswordNotUpdatedException("Must update password to continue.");
+
+            // Third, verify if Token already exists and is expired or revoked.
             boolean isTokenValid = tokenRepository.findByToken(jwt)
                     .map(token -> !token.isExpired() && !token.isRevoked())
                     .orElse(false);
-
 
             if (jwtService.isTokenValid(jwt, userDetails) && isTokenValid) {
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(

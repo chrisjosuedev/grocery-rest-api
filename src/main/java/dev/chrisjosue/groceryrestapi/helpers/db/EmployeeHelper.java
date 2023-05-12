@@ -68,8 +68,8 @@ public class EmployeeHelper {
     /**
      * Build an Employee from EmployeeDTO
      *
-     * @Params productDTO
-     * @Return Article Built.
+     * @Params employeeDTO
+     * @Return Employee Built.
      */
     public Employee employeeFromDto(EmployeeDto employeeDto) {
         return Employee.builder()

@@ -20,6 +20,18 @@ public class EmployeeHelper {
     private final PasswordEncoder passwordEncoder;
 
     /**
+     * Find If Employee By Id Exists.
+     *
+     * @Params ID
+     * @Return Employee if exists, null otherwise
+     */
+    public Employee findById(Long id) {
+        return employeeRepository
+                .findByIdAndIsActiveIsTrue(id)
+                .orElse(null);
+    }
+
+    /**
      * Get Employee from Principal
      */
     public Employee getLoggedEmployee(Principal principal) {

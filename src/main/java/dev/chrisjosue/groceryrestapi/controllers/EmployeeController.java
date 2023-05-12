@@ -9,7 +9,6 @@ import dev.chrisjosue.groceryrestapi.helpers.db.EmployeeHelper;
 import dev.chrisjosue.groceryrestapi.service.IEmployeeService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,7 +33,7 @@ public class EmployeeController {
             @RequestParam(required = false, name = "limit")
             @Min(value = 0, message = "From must be positive number.") Integer limit,
             @RequestParam(required = false, name = "from")
-            @Positive(message = "From must be greater than 0.") Integer from
+            @Min(value = 0, message = "From must be greater than 0.") Integer from
     ) {
         List<Employee> allEmployees = employeeService.findAll(limit, from);
 

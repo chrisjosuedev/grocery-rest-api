@@ -8,6 +8,7 @@ import dev.chrisjosue.groceryrestapi.repository.EmployeeRepository;
 import dev.chrisjosue.groceryrestapi.service.IEmployeeService;
 import dev.chrisjosue.groceryrestapi.utils.exceptions.MyBusinessException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -22,12 +23,21 @@ public class EmployeeService implements IEmployeeService {
 
     @Override
     public List<Employee> findAll(Integer limit, Integer from) {
-        return null;
+        List<Employee> allEmployee = employeeRepository.findAllByIsActiveIsTrue();
+
+        if (limit == null || from == null) return allEmployee;
+
+        allEmployee = employeeRepository.findAllByIsActiveIsTrue(PageRequest.of(from, limit));
+        return allEmployee;
     }
 
     @Override
     public Employee findById(Long id) {
-        return null;
+        Employee employeeFound = employeeHelper.findById(id);
+        if (employeeFound == null)
+            throw new MyBusinessException("Employee not found with given id.", HttpStatus.NOT_FOUND);
+
+        return employeeFound;
     }
 
     @Override
@@ -58,6 +68,10 @@ public class EmployeeService implements IEmployeeService {
 
     @Override
     public void disable(Long id) {
-
+        Employee employeeFound = employeeHelper.findById(id);
+        if (employeeFound == null)
+            throw new MyBusinessException("Employee not found with given id.", HttpStatus.NOT_FOUND);
+        employeeFound.setIsActive(false);
+        employeeRepository.save(employeeFound);
     }
 }

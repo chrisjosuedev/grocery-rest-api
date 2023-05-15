@@ -45,7 +45,7 @@ public class ArticleHelper {
             articleRepository
                     .findByIdAndIsEnabledIsTrue(article.getId())
                     .ifPresent((item) -> {
-                        item.setStock(item.getStock() + article.getStock());
+                        item.setStock(article.getStock());
                         articleRepository.save(item);
                     });
         }));

@@ -16,4 +16,25 @@ public class InvoiceDetailDto {
 
     @NotNull(message = "Amount is required.")
     private Long articleId;
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof InvoiceDetailDto invoiceObj) {
+            boolean isEqual = this.articleId.equals(invoiceObj.articleId);
+            if (isEqual) {
+                int newQuantity = invoiceObj.amount + this.amount;
+                invoiceObj.setAmount(newQuantity);
+            }
+            return isEqual;
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 17;
+        result = 31 * result + getArticleId().hashCode();
+        return result;
+    }
+
 }

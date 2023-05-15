@@ -24,6 +24,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -59,8 +60,9 @@ public class InvoiceService implements IInvoiceService {
             // If fails, delete Invoice.
             invoiceRepository.delete(newInvoice);
 
-            // Rollback stock changes
+            // Rollback stock changes and Clean up Array
             articleHelper.rollbackStock(articlesToUpdateIfProcessFails);
+            articlesToUpdateIfProcessFails.clear();
 
             // Throw Exception and Show Message with Information
             throw new MyBusinessException("Invoice not generated: " + e.getMessage(), HttpStatus.BAD_REQUEST);
@@ -74,7 +76,7 @@ public class InvoiceService implements IInvoiceService {
      * This method add Items to a List, if article does not exist, just
      * do not add it and go to next.
      */
-    private List<InvoiceDetail> getItems(Invoice order, List<InvoiceDetailDto> invoiceDetails) {
+    private List<InvoiceDetail> getItems(Invoice order, Set<InvoiceDetailDto> invoiceDetails) {
         List<InvoiceDetail> itemsRegistered = new ArrayList<>();
 
         invoiceDetails.forEach((item) -> {

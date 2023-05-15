@@ -20,7 +20,7 @@ public class Article {
     private Long id;
 
     @NotBlank(message = "Article Name is required.")
-    @Length(min = 5, message = "Minimun name length must be greater than 5.")
+    @Length(min = 5, message = "Minimum name length must be greater than 5.")
     private String articleName;
 
     @NotBlank(message = "Description is required.")

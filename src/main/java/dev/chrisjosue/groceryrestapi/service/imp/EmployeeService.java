@@ -4,9 +4,11 @@ import dev.chrisjosue.groceryrestapi.dto.requests.person.EmployeeDto;
 import dev.chrisjosue.groceryrestapi.dto.requests.person.EmployeeUpdateDto;
 import dev.chrisjosue.groceryrestapi.entity.person.Employee;
 import dev.chrisjosue.groceryrestapi.helpers.db.EmployeeHelper;
+import dev.chrisjosue.groceryrestapi.helpers.db.TokenHelper;
 import dev.chrisjosue.groceryrestapi.repository.EmployeeRepository;
 import dev.chrisjosue.groceryrestapi.service.IEmployeeService;
 import dev.chrisjosue.groceryrestapi.utils.exceptions.MyBusinessException;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
@@ -15,11 +17,13 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class EmployeeService implements IEmployeeService {
 
     private final EmployeeRepository employeeRepository;
     private final EmployeeHelper employeeHelper;
+    private final TokenHelper tokenHelper;
 
     @Override
     public List<Employee> findAll(Integer limit, Integer from) {
@@ -73,5 +77,8 @@ public class EmployeeService implements IEmployeeService {
             throw new MyBusinessException("Employee not found with given id.", HttpStatus.NOT_FOUND);
         employeeFound.setIsActive(false);
         employeeRepository.save(employeeFound);
+
+        // Disable and Revoke Access Tokens
+        tokenHelper.revokeAllUserTokens(employeeFound);
     }
 }

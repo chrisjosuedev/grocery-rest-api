@@ -14,8 +14,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 public class InvoiceDto {
-    @NotBlank(message = "Customer is required.")
-    @NotNull(message = "Customer can not be null.")
+    @NotNull(message = "Customer is required.")
     private Long customerId;
 
     @NotEmpty(message = "Product Invoice Details can not be empty.")

@@ -4,6 +4,7 @@ import dev.chrisjosue.groceryrestapi.dto.requests.invoice.InvoiceDto;
 import dev.chrisjosue.groceryrestapi.dto.responses.ResponseHandler;
 import dev.chrisjosue.groceryrestapi.entity.person.Employee;
 import dev.chrisjosue.groceryrestapi.helpers.db.EmployeeHelper;
+import dev.chrisjosue.groceryrestapi.service.IInvoiceService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -20,6 +21,7 @@ import java.security.Principal;
 @RequiredArgsConstructor
 public class InvoiceController {
     private final EmployeeHelper employeeHelper;
+    private final IInvoiceService invoiceService;
 
     @PostMapping("/create")
     public ResponseEntity<Object> createInvoice(Principal principal,
@@ -28,7 +30,7 @@ public class InvoiceController {
         return ResponseHandler.responseBuilder(
                 "Invoice generated.",
                 HttpStatus.CREATED,
-                null
+                invoiceService.registerPurchase(invoiceDto, loggedEmployee)
         );
     }
 }

@@ -1,5 +1,6 @@
 package dev.chrisjosue.groceryrestapi.entity.invoice;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import dev.chrisjosue.groceryrestapi.entity.article.Article;
 import jakarta.persistence.*;
@@ -27,6 +28,7 @@ public class InvoiceDetail {
     @NotNull(message = "Price is required.")
     private Double unitPrice;
 
+    @JsonIgnore
     @JsonManagedReference
     @ManyToOne(optional = false)
     @MapsId("invoiceId")

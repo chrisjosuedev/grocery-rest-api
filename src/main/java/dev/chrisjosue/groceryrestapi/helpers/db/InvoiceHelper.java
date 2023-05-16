@@ -7,16 +7,27 @@ import dev.chrisjosue.groceryrestapi.entity.person.Employee;
 import dev.chrisjosue.groceryrestapi.entity.person.Person;
 import dev.chrisjosue.groceryrestapi.helpers.patterns.MyUtils;
 import dev.chrisjosue.groceryrestapi.repository.InvoiceDetailsRepository;
+import dev.chrisjosue.groceryrestapi.repository.InvoiceRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
 public class InvoiceHelper {
 
     private final InvoiceDetailsRepository invoiceDetailsRepository;
+    private final InvoiceRepository invoiceRepository;
+
+    /**
+     * Find Invoice By ID
+     */
+    public Invoice findById(Long invoiceId) {
+        Optional<Invoice> invoiceFound = invoiceRepository.findById(invoiceId);
+        return invoiceFound.orElse(null);
+    }
 
     /**
      * Build an Invoice from InvoiceDTO

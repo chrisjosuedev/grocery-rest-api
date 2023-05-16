@@ -1,6 +1,5 @@
 package dev.chrisjosue.groceryrestapi.entity.invoice;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import dev.chrisjosue.groceryrestapi.entity.person.Employee;
 import dev.chrisjosue.groceryrestapi.entity.person.Person;
 import jakarta.persistence.*;
@@ -39,7 +38,6 @@ public class Invoice {
     @JoinColumn(name = "customer_id")
     private Person person;
 
-    @JsonBackReference
     @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, mappedBy = "invoice")
     private List<InvoiceDetail> invoiceDetail;
 }

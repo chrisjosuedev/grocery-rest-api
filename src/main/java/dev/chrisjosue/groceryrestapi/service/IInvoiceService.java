@@ -6,4 +6,6 @@ import dev.chrisjosue.groceryrestapi.entity.person.Employee;
 
 public interface IInvoiceService {
     InvoiceResponse registerPurchase(InvoiceDto invoiceDto, Employee employee);
+
+    InvoiceResponse findInvoiceById(Long invoiceId);
 }

@@ -69,6 +69,15 @@ public class InvoiceService implements IInvoiceService {
         }
     }
 
+    @Override
+    public InvoiceResponse findInvoiceById(Long invoiceId) {
+        Invoice invoiceFound = invoiceHelper.findById(invoiceId);
+        if (invoiceFound == null)
+            throw new MyBusinessException("Invoice with given ID does not exist.", HttpStatus.BAD_REQUEST);
+
+        return invoiceHelper.invoiceResponse(invoiceFound);
+    }
+
     /**
      * @param order
      * @param invoiceDetails

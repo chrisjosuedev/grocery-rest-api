@@ -20,7 +20,7 @@ public class EmployeeHelper {
     private final PasswordEncoder passwordEncoder;
 
     /**
-     * Find If Employee By Id Exists.
+     * Find If Employee By ID Exists.
      *
      * @Params ID
      * @Return Employee if exists, null otherwise
@@ -38,6 +38,15 @@ public class EmployeeHelper {
         return employeeRepository
                 .findByUsernameAndIsActiveIsTrue(principal.getName())
                 .orElseThrow(() -> new MyBusinessException("Employee not found.", HttpStatus.FORBIDDEN));
+    }
+
+    /**
+     * Get Employee By Username
+     */
+    public Employee getEmployeeByUsername(String username) {
+        return employeeRepository
+                .findByUsernameAndIsActiveIsTrue(username)
+                .orElseThrow(() -> new MyBusinessException("Employee with given username not found.", HttpStatus.FORBIDDEN));
     }
 
     /**

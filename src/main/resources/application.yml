@@ -4,6 +4,17 @@ server:
     context-path: /api/v1/
 
 spring:
+  mail:
+    host: smtp.office365.com
+    port: 587
+    username: "${OUTLOOK_EMAIL}"
+    password: "${OUTLOOK_PASSWORD}"
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
   datasource:
     url: "jdbc:mysql://localhost:3306/grocerydb?allowPublicKeyRetrieval=true&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC"
     username: root
@@ -13,5 +24,8 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+
+env:
+  MAIL: "is2solutions@outlook.com"
 
 

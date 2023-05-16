@@ -30,7 +30,9 @@ public class SecurityConfig {
                 .disable()
                 .authorizeHttpRequests(authz -> authz
                         .requestMatchers("/actuator/health").permitAll()
-                        .requestMatchers("/auth/**").permitAll()
+                        .requestMatchers("/auth/signin").permitAll()
+                        .requestMatchers("/auth/change-password").permitAll()
+                        .requestMatchers("/auth/forgot-password/**").hasAuthority("ADMIN")
                         .requestMatchers(HttpMethod.POST, "/employees").hasAuthority("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/employees/**").hasAuthority("ADMIN")
                         .anyRequest().authenticated()

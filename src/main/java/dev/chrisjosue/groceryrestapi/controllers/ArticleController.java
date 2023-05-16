@@ -30,7 +30,6 @@ public class ArticleController {
             @RequestParam(required = false, name = "from")
             @Min(value = 0, message = "From must be greater than 0.") Integer from
     ) {
-
         List<Article> allArticles = articleService.findAll(limit, from);
 
         // Contain Data

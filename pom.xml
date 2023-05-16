@@ -54,6 +54,18 @@
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
+        <dependency>
+            <groupId>io.github.cemiltokatli.passwordgenerator</groupId>
+            <artifactId>password-generator</artifactId>
+            <version>1.0</version>
+        </dependency>
+
+
+        <!-- Mail Sender -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+        </dependency>
 
         <!-- Verify Phone with Twilio -->
         <dependency>

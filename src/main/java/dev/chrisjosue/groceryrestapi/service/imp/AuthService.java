@@ -70,9 +70,6 @@ public class AuthService implements IAuthService {
         String generateRecoveryToken = UUID.randomUUID().toString();
         String recoveryLink = MyUtils.getSiteURL(request) + "/auth/forgot-password/recovery?token=" + generateRecoveryToken;
 
-        // Set Password Update Status
-        employeeFound.setIsPasswordUpdated(false);
-
         // Update Employee Data and Save Token
         employeeRepository.save(employeeFound);
 
@@ -102,8 +99,6 @@ public class AuthService implements IAuthService {
 
         // Update Password
         employeeRequest.setPassword(passwordEncoder.encode(recoveryPasswordDto.getNewPassword()));
-        employeeRequest.setIsPasswordUpdated(true);
-
         employeeRepository.save(employeeRequest);
 
         // Revoke previous tokens.

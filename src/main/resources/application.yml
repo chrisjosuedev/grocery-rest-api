@@ -26,6 +26,6 @@ spring:
     show-sql: true
 
 env:
-  MAIL: "is2solutions@outlook.com"
+  MAIL: "${OUTLOOK_EMAIL}"
 
 

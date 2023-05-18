@@ -1,7 +1,5 @@
 package dev.chrisjosue.groceryrestapi.helpers.db;
 
-import com.cemiltokatli.passwordgenerate.Password;
-import com.cemiltokatli.passwordgenerate.PasswordType;
 import dev.chrisjosue.groceryrestapi.dto.requests.person.EmployeeDto;
 import dev.chrisjosue.groceryrestapi.entity.person.Employee;
 import dev.chrisjosue.groceryrestapi.entity.token.Token;
@@ -13,10 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import javax.swing.text.html.Option;
 import java.security.Principal;
 import java.util.Optional;
-import java.util.UUID;
 
 @Component
 @RequiredArgsConstructor
@@ -80,30 +76,6 @@ public class EmployeeHelper {
     }
 
     /**
-     * Find If Employee Password is already updated.
-     *
-     * @Params Employee
-     * @Return Employee if password was updated, null otherwise.
-     */
-    public Employee isPasswordUpdated(String username) {
-        return employeeRepository
-                .findByUsernameAndIsActiveIsTrue(username)
-                .filter(Employee::getIsPasswordUpdated)
-                .orElse(null);
-    }
-
-    /**
-     * Find If First Session
-     */
-    public Boolean isFirstSession(String username) {
-        Optional<Employee> isFirstSession = employeeRepository
-                .findByUsernameAndIsActiveIsTrue(username);
-        if (isFirstSession.isPresent())
-            return isFirstSession.get().getIsFirstSession();
-        return false;
-    }
-
-    /**
      * Check if Old Password Match
      */
     public boolean isPasswordMatch(Employee employeeRequest, String password) {
@@ -129,8 +101,6 @@ public class EmployeeHelper {
                 .password(passwordEncoder.encode(securedPassword))
                 .role(employeeDto.getRole())
                 .hireDate(employeeDto.getHireDate())
-                .isFirstSession(true)
-                .isPasswordUpdated(false)
                 .isActive(true)
                 .type(true)
                 .build();

@@ -52,11 +52,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             // First, check credentials
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
 
-            // Second, Check if password is updated. If not, throws an Exception.
-            if (employeeHelper.isPasswordUpdated(userDetails.getUsername()) == null
-                    && !employeeHelper.isFirstSession(userDetails.getUsername()))
-                throw new PasswordNotUpdatedException("Must update password to continue.");
-
             // Third, verify if Token already exists and is expired or revoked.
             boolean isTokenValid = tokenRepository.findByToken(jwt)
                     .map(token -> !token.isExpired() && !token.isRevoked())

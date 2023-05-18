@@ -26,6 +26,6 @@ public class MyUtils {
         return Password
                 .createPassword(PasswordType.ALPHANUMERIC, 8)
                 .generate()
-                .concat("!");
+                .concat("O!");
     }
 }

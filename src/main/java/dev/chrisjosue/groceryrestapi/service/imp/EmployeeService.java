@@ -97,7 +97,6 @@ public class EmployeeService implements IEmployeeService {
             throw new MyBusinessException("Employee Old Password do not match.", HttpStatus.BAD_REQUEST);
 
         loggedEmployee.setPassword(passwordEncoder.encode(updatePasswordDto.getNewPassword()));
-        loggedEmployee.setIsFirstSession(false);
         employeeRepository.save(loggedEmployee);
     }
 

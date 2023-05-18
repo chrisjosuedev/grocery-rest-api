@@ -2,7 +2,6 @@ package dev.chrisjosue.groceryrestapi.security;
 
 import dev.chrisjosue.groceryrestapi.helpers.db.EmployeeHelper;
 import dev.chrisjosue.groceryrestapi.repository.TokenRepository;
-import dev.chrisjosue.groceryrestapi.utils.exceptions.PasswordNotUpdatedException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

@@ -72,24 +72,6 @@ public class ControllerAdvice {
 
     /**
      *
-     * @param ex PasswordNotUpdatedException Custom
-     * @return Error in Array List
-     */
-    @ExceptionHandler(value = PasswordNotUpdatedException.class)
-    public ResponseEntity<ErrorDto> businessExceptionHandler(PasswordNotUpdatedException ex) {
-        List<String> listOfCustomErrors = new ArrayList<>();
-
-        listOfCustomErrors.add(ex.getMessage());
-        ErrorDto err = ErrorDto.builder()
-                .errors(listOfCustomErrors)
-                .httpStatus(ex.getHttpStatus())
-                .build();
-
-        return new ResponseEntity<>(err, ex.getHttpStatus());
-    }
-
-    /**
-     *
      * @param ex ConstraintValidation if validation fails.
      * @return Error in Array List
      */

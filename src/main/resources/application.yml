@@ -1,5 +1,5 @@
 server:
-  port: 9000
+  port: 9090
   servlet:
     context-path: /api/v1/
 
@@ -7,8 +7,8 @@ spring:
   mail:
     host: smtp.office365.com
     port: 587
-    username: "${OUTLOOK_EMAIL}"
-    password: "${OUTLOOK_PASSWORD}"
+    username: ${OUTLOOK_EMAIL}
+    password: ${OUTLOOK_PASSWORD}
     properties:
       mail:
         smtp:
@@ -16,16 +16,16 @@ spring:
           starttls:
             enable: true
   datasource:
-    url: "jdbc:mysql://localhost:3306/grocerydb?allowPublicKeyRetrieval=true&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC"
-    username: root
-    password: admin
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/grocerydb
+    username: ${SPRING_DATASOURCE_USERNAME:root}
+    password: ${SPRING_DATASOURCE_PASSWORD:root}
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
     show-sql: true
 
 env:
-  MAIL: "${OUTLOOK_EMAIL}"
+  MAIL: ${OUTLOOK_EMAIL}
 
 

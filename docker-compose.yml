@@ -1,0 +1,32 @@
+version: "3"
+
+services:
+  grocery-api:
+    container_name: grocery-api
+    restart: always
+    build: .
+    ports:
+      - "9090:9090"
+    environment:
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+      OUTLOOK_EMAIL: YOUR_EMAIL
+      OUTLOOK_PASSWORD: YOUR_EMAIL_PASSWORD
+      TWILIO_ACCOUNT_SID: YOUR_TWILIO_SID
+      TWILIO_AUTH_TOKEN: YOUR_TWILIO_TOKEN
+      MYSQL_HOST: mysqldb
+    depends_on:
+      - mysqldb
+
+  mysqldb:
+    container_name: mysqldb
+    image: mysql
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_PASSWORD: root
+    restart: always
+    volumes:
+      - ./data:/var/lib/mysql
+      - ./init/init.sql:/docker-entrypoint-initdb.d/init.sql

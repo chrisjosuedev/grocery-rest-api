@@ -2,6 +2,7 @@ package dev.chrisjosue.groceryrestapi.controllers;
 
 import dev.chrisjosue.groceryrestapi.dto.requests.person.EmployeeDto;
 import dev.chrisjosue.groceryrestapi.dto.requests.person.EmployeeUpdateDto;
+import dev.chrisjosue.groceryrestapi.dto.requests.person.UpdatePasswordDto;
 import dev.chrisjosue.groceryrestapi.dto.responses.ResponseDataDto;
 import dev.chrisjosue.groceryrestapi.dto.responses.ResponseHandler;
 import dev.chrisjosue.groceryrestapi.entity.person.Employee;
@@ -61,7 +62,7 @@ public class EmployeeController {
     @PostMapping
     public ResponseEntity<Object> createEmployee(@Valid @RequestBody EmployeeDto employeeDto) {
         return ResponseHandler.responseBuilder(
-                "Employee created and user assigned successfully.",
+                "Employee created and user assigned successfully. Credentials sent to User Email.",
                 HttpStatus.CREATED,
                 employeeService.create(employeeDto)
         );
@@ -74,6 +75,18 @@ public class EmployeeController {
                 "Employee updated successfully.",
                 HttpStatus.OK,
                 employeeService.update(loggedEmployee, employeeUpdateDto)
+        );
+    }
+
+    @PutMapping("/change-password")
+    public ResponseEntity<Object> updateEmployeePassword(Principal principal,
+                                                 @Valid @RequestBody UpdatePasswordDto updatePasswordDto) {
+        Employee loggedEmployee = employeeHelper.getLoggedEmployee(principal);
+        employeeService.updatePassword(loggedEmployee, updatePasswordDto);
+        return ResponseHandler.responseBuilder(
+                "Password updated successfully.",
+                HttpStatus.OK,
+                Collections.EMPTY_LIST
         );
     }
 

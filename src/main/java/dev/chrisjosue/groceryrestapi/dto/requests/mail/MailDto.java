@@ -13,4 +13,10 @@ public class MailDto {
         this.subject = "PASSWORD RECOVERY";
         this.message = message;
     }
+
+    public MailDto(String to, String subject, String message) {
+        this.to = to;
+        this.subject = subject;
+        this.message = message;
+    }
 }

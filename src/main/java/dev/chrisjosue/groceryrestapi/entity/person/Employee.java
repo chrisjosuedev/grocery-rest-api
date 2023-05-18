@@ -47,6 +47,9 @@ public class Employee extends Person implements UserDetails {
     @PastOrPresent(message = "Date is invalid, must be Present or Past.")
     private Date hireDate;
 
+    @Column(name = "is_first_session")
+    private Boolean isFirstSession;
+
     @Column(name = "is_password_updated",  columnDefinition = "boolean default true")
     private Boolean isPasswordUpdated;
 

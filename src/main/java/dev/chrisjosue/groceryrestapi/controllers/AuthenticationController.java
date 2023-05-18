@@ -1,9 +1,10 @@
 package dev.chrisjosue.groceryrestapi.controllers;
 
-import dev.chrisjosue.groceryrestapi.dto.requests.auth.PasswordDto;
+import dev.chrisjosue.groceryrestapi.dto.requests.auth.RecoveryPasswordDto;
 import dev.chrisjosue.groceryrestapi.dto.requests.auth.SignInDto;
 import dev.chrisjosue.groceryrestapi.dto.responses.ResponseHandler;
 import dev.chrisjosue.groceryrestapi.service.IAuthService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -37,23 +38,25 @@ public class AuthenticationController {
      */
     @PostMapping("/forgot-password")
     public ResponseEntity<Object> forgotPassword(
-            @RequestParam("username") String username) {
-        authService.resetPassword(username);
+            @RequestParam("username") String username,
+            HttpServletRequest request) {
         return ResponseHandler.responseBuilder(
                 "Temporal password generated, review your email.",
                 HttpStatus.OK,
-                Collections.EMPTY_LIST
+                authService.resetPassword(username, request)
         );
     }
 
     /**
      * Change Password
      */
-    @PostMapping("/change-password")
-    public ResponseEntity<Object> changePassword(@Valid @RequestBody PasswordDto passwordDto) {
-        authService.changePassword(passwordDto);
+    @PostMapping("/forgot-password/recovery")
+    public ResponseEntity<Object> changePassword(
+            @RequestParam("token") String token,
+            @Valid @RequestBody RecoveryPasswordDto passwordDto) {
+        authService.changePassword(passwordDto, token);
         return ResponseHandler.responseBuilder(
-                "Password updated successfully. You can logging again.",
+                "Password updated successfully. You can logging again with new password.",
                 HttpStatus.OK,
                 Collections.EMPTY_LIST
         );

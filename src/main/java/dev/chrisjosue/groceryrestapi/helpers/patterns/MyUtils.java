@@ -1,15 +1,13 @@
 package dev.chrisjosue.groceryrestapi.helpers.patterns;
 
+import com.cemiltokatli.passwordgenerate.Password;
+import com.cemiltokatli.passwordgenerate.PasswordType;
+import jakarta.servlet.http.HttpServletRequest;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.regex.Pattern;
 
 public class MyUtils {
-    public static boolean matchWithString(String value, String regex) {
-        Pattern special = Pattern.compile(regex);
-        return special.matcher(value).find();
-    }
-
     public static Double round(double number, int places) {
         if (places < 0) throw new IllegalArgumentException();
 
@@ -17,5 +15,17 @@ public class MyUtils {
         bd = bd.setScale(places, RoundingMode.HALF_UP);
 
         return bd.doubleValue();
+    }
+
+    public static String getSiteURL(HttpServletRequest request) {
+        String siteURL = request.getRequestURL().toString();
+        return siteURL.replace(request.getServletPath(), "");
+    }
+
+    public static String generateSecurePassword() {
+        return Password
+                .createPassword(PasswordType.ALPHANUMERIC, 8)
+                .generate()
+                .concat("!");
     }
 }

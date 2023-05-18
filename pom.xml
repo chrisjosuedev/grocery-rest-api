@@ -60,12 +60,25 @@
             <version>1.0</version>
         </dependency>
 
+        <!-- Passay -->
+        <dependency>
+            <groupId>org.passay</groupId>
+            <artifactId>passay</artifactId>
+            <version>1.6.3</version>
+        </dependency>
+
 
         <!-- Mail Sender -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-mail</artifactId>
         </dependency>
+        <dependency>
+            <groupId>jakarta.mail</groupId>
+            <artifactId>jakarta.mail-api</artifactId>
+            <version>2.1.1</version>
+        </dependency>
+
 
         <!-- Verify Phone with Twilio -->
         <dependency>

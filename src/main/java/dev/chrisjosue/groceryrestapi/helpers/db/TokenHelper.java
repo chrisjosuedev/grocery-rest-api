@@ -18,12 +18,12 @@ public class TokenHelper {
      * Save Generated Token by Employee Login
      * @Params jwt, employee
      */
-    public void saveToken(String jwt, Employee employee) {
+    public void saveToken(String jwt, Employee employee, TokenType type) {
         Token saveGeneratedToken = Token.builder()
                 .token(jwt)
                 .revoked(false)
                 .expired(false)
-                .tokenType(TokenType.BEARER)
+                .tokenType(type)
                 .employee(employee)
                 .build();
         tokenRepository.save(saveGeneratedToken);

@@ -1,5 +1,6 @@
 package dev.chrisjosue.groceryrestapi.entity.token;
 
 public enum TokenType {
-    BEARER
+    BEARER,
+    RESET_TOKEN
 }

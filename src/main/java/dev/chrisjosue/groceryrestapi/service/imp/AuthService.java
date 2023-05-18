@@ -1,25 +1,27 @@
 package dev.chrisjosue.groceryrestapi.service.imp;
 
-import com.cemiltokatli.passwordgenerate.Password;
-import com.cemiltokatli.passwordgenerate.PasswordType;
-import dev.chrisjosue.groceryrestapi.dto.requests.auth.PasswordDto;
+import dev.chrisjosue.groceryrestapi.dto.requests.auth.RecoveryPasswordDto;
 import dev.chrisjosue.groceryrestapi.dto.requests.auth.SignInDto;
 import dev.chrisjosue.groceryrestapi.dto.requests.mail.MailDto;
 import dev.chrisjosue.groceryrestapi.dto.responses.AuthResponse;
 import dev.chrisjosue.groceryrestapi.entity.person.Employee;
+import dev.chrisjosue.groceryrestapi.entity.token.TokenType;
 import dev.chrisjosue.groceryrestapi.helpers.db.EmployeeHelper;
 import dev.chrisjosue.groceryrestapi.helpers.db.TokenHelper;
+import dev.chrisjosue.groceryrestapi.helpers.patterns.MyUtils;
 import dev.chrisjosue.groceryrestapi.repository.EmployeeRepository;
 import dev.chrisjosue.groceryrestapi.security.JwtService;
 import dev.chrisjosue.groceryrestapi.service.IAuthService;
 import dev.chrisjosue.groceryrestapi.service.IEmailSenderService;
-import dev.chrisjosue.groceryrestapi.utils.exceptions.PasswordNotUpdatedException;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.UUID;
 
 @Service
 @Transactional
@@ -45,10 +47,6 @@ public class AuthService implements IAuthService {
 
         Employee employee = employeeHelper.getEmployeeByUsername(signInDto.getUsername());
 
-        // Check if password is updated.
-        if (employeeHelper.isPasswordUpdated(employee.getUsername()) == null)
-            throw new PasswordNotUpdatedException("Must update password to continue.");
-
         // Generate JWT
         String jwt = jwtService.generateToken(employee);
 
@@ -56,7 +54,7 @@ public class AuthService implements IAuthService {
         tokenHelper.revokeAllUserTokens(employee);
 
         // Save token
-        tokenHelper.saveToken(jwt, employee);
+        tokenHelper.saveToken(jwt, employee, TokenType.BEARER);
 
         return AuthResponse.builder()
                 .token(jwt)
@@ -67,30 +65,48 @@ public class AuthService implements IAuthService {
      * Reset password and Assign a new one
      */
     @Override
-    public void resetPassword(String username) {
+    public AuthResponse resetPassword(String username, HttpServletRequest request) {
         Employee employeeFound = employeeHelper.getEmployeeByUsername(username);
-        String generatedPassword = Password
-                .createPassword(PasswordType.ALPHANUMERIC, 8)
-                .generate()
-                .concat("!");
+        String generateRecoveryToken = UUID.randomUUID().toString();
+        String recoveryLink = MyUtils.getSiteURL(request) + "/auth/forgot-password/recovery?token=" + generateRecoveryToken;
 
-        // Change current password and Create a new One
-        employeeFound.setPassword(passwordEncoder.encode(generatedPassword));
+        // Set Password Update Status
         employeeFound.setIsPasswordUpdated(false);
 
-        // Update Employee Data
+        // Update Employee Data and Save Token
         employeeRepository.save(employeeFound);
 
-        // Set message in Body Email
-        String message = "Your password was updated, please change it for a new one: " + generatedPassword;
+        // Revoke old Tokens and Save new Token
+        tokenHelper.revokeAllUserTokens(employeeFound);
+        tokenHelper.saveToken(generateRecoveryToken, employeeFound, TokenType.RESET_TOKEN);
+
+        // Set Message
+        String message = "<p>Hello User,</p>"
+                + "<p>You have requested to reset your password.</p>"
+                + "<p>Here is your Recovery Token:</p>"
+                + "<p><a href=\"" + recoveryLink + "\">Recovery my password.</a></p>"
+                + "<br>";
 
         // Send Email
         MailDto mailDto = new MailDto(employeeFound.getEmail(), message);
         emailSenderService.sendEmail(mailDto);
+
+        return AuthResponse.builder()
+                .token(generateRecoveryToken)
+                .build();
     }
 
     @Override
-    public void changePassword(PasswordDto passwordDto) {
-        // TODO: Update Password
+    public void changePassword(RecoveryPasswordDto recoveryPasswordDto, String token) {
+        Employee employeeRequest = employeeHelper.getEmployeeByRecoveryToken(token);
+
+        // Update Password
+        employeeRequest.setPassword(passwordEncoder.encode(recoveryPasswordDto.getNewPassword()));
+        employeeRequest.setIsPasswordUpdated(true);
+
+        employeeRepository.save(employeeRequest);
+
+        // Revoke previous tokens.
+        tokenHelper.revokeAllUserTokens(employeeRequest);
     }
 }

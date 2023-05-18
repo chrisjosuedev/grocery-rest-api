@@ -5,14 +5,12 @@ import jakarta.validation.Payload;
 
 import java.lang.annotation.*;
 
-import static java.lang.annotation.ElementType.*;
-
 @Documented
-@Constraint(validatedBy = PasswordFormatValidator.class)
-@Target({ TYPE, FIELD, ANNOTATION_TYPE })
+@Constraint(validatedBy = PasswordMatchValidator.class)
+@Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Password {
-    String message() default "Invalid password format";
+public @interface PasswordMatch {
+    String message() default "Passwords do not match.";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }

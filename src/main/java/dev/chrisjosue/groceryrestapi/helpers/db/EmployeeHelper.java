@@ -1,14 +1,19 @@
 package dev.chrisjosue.groceryrestapi.helpers.db;
 
+import com.cemiltokatli.passwordgenerate.Password;
+import com.cemiltokatli.passwordgenerate.PasswordType;
 import dev.chrisjosue.groceryrestapi.dto.requests.person.EmployeeDto;
 import dev.chrisjosue.groceryrestapi.entity.person.Employee;
+import dev.chrisjosue.groceryrestapi.entity.token.Token;
 import dev.chrisjosue.groceryrestapi.repository.EmployeeRepository;
+import dev.chrisjosue.groceryrestapi.repository.TokenRepository;
 import dev.chrisjosue.groceryrestapi.utils.exceptions.MyBusinessException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import javax.swing.text.html.Option;
 import java.security.Principal;
 import java.util.Optional;
 import java.util.UUID;
@@ -17,7 +22,20 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class EmployeeHelper {
     private final EmployeeRepository employeeRepository;
+    private final TokenRepository tokenRepository;
     private final PasswordEncoder passwordEncoder;
+
+    /**
+     * Get Employee Info by Recovery Token
+     */
+    public Employee getEmployeeByRecoveryToken(String token) {
+        Token recoveryTokenFound = tokenRepository
+                .findByTokenAndRevokedIsFalseAndExpiredFalse(token)
+                .orElseThrow(() -> new MyBusinessException("Token not found.", HttpStatus.FORBIDDEN));
+
+        return findById(recoveryTokenFound.getEmployee().getId());
+    }
+
 
     /**
      * Find If Employee By ID Exists.
@@ -75,12 +93,31 @@ public class EmployeeHelper {
     }
 
     /**
+     * Find If First Session
+     */
+    public Boolean isFirstSession(String username) {
+        Optional<Employee> isFirstSession = employeeRepository
+                .findByUsernameAndIsActiveIsTrue(username);
+        if (isFirstSession.isPresent())
+            return isFirstSession.get().getIsFirstSession();
+        return false;
+    }
+
+    /**
+     * Check if Old Password Match
+     */
+    public boolean isPasswordMatch(Employee employeeRequest, String password) {
+        return passwordEncoder.matches(password, employeeRequest.getPassword());
+    }
+
+    /**
      * Build an Employee from EmployeeDTO
      *
      * @Params employeeDTO
      * @Return Employee Built.
      */
-    public Employee employeeFromDto(EmployeeDto employeeDto) {
+    public Employee employeeFromDto(EmployeeDto employeeDto, String securedPassword) {
+
         return Employee.builder()
                 .dni(employeeDto.getDni())
                 .firstName(employeeDto.getFirstName())
@@ -89,13 +126,15 @@ public class EmployeeHelper {
                 .phone(employeeDto.getPhone())
                 .email(employeeDto.getEmail())
                 .username(employeeDto.getUsername())
-                .password(passwordEncoder.encode(employeeDto.getPassword()))
+                .password(passwordEncoder.encode(securedPassword))
                 .role(employeeDto.getRole())
                 .hireDate(employeeDto.getHireDate())
+                .isFirstSession(true)
                 .isPasswordUpdated(false)
                 .isActive(true)
                 .type(true)
                 .build();
     }
+
 
 }

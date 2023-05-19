@@ -24,6 +24,7 @@ This database design ensures a structured representation of items, invoices, and
 
 
 ## 🚀 Setup
+> This is the local version for execution. For running it with a Docker image, please refer to the "docker-version" branch for detailed instructions on how to configure the image correctly.
 
 1. Clone this project: `git clone https://github.com/chrisjosuedev/grocery-rest-api.git`
 2. Go to the project folder:

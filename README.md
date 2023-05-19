@@ -12,8 +12,8 @@ The Grocery Rest API project is a professional-grade, technically advanced REST 
 
 ## 👨‍💻 Documentation OpenAPI
 
-- [Postman Collection](https://postman).
-- [OpenAPI Swagger Spec](http://url).
+- [Postman Collection](https://postman)
+- [OpenAPI Swagger Spec](http://url)
 
 ## 🤖 General Database Diagram
 

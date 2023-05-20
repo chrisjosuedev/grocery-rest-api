@@ -45,8 +45,8 @@ This database design ensures a structured representation of items, invoices, and
 
 1. Once the dependencies are installed, you can run via IDE or Maven.
 
-## 🧪 Unit Tests & Integration Tests
-The unit tests and integration tests can be found in the directory `src/test/java`
+## 🧪 Unit Tests & Integration Tests (Junit & Mockito)
+The unit tests and integration tests for the critical path of the system can be found in the directory `src/test/java`
 
 ## 🔗 Notes
 > If you want to use other Mail Service, please check [Spring Email](https://www.baeldung.com/spring-email) and change

@@ -8,12 +8,12 @@
 ✨ Rest API developed to Small Grocery Stores.
 
 ## ⚡️ Description
-The Grocery Rest API project is a professional-grade, technically advanced REST API for a small store. It is developed using Spring Boot 3 and utilizes MySQL as its database management system. The API incorporates a robust security module powered by Spring Security, which implements JSON Web Tokens (JWT) for secure authentication and authorization. Additionally, the project includes features such as email notifications for account credentials and password reset functionality. With a focus on scalability and security, this API provides a reliable foundation for managing various aspects of a small store's operations. Additionally, the Twilio API is being used for phone number verification purposes.
+The Grocery Rest API project is a professional-grade, technically advanced CRM (Customer Relationship Management) designed for small businesses as consumers. It is developed using Spring Boot 3 and utilizes MySQL as its database management system. The API incorporates a robust security module powered by Spring Security, which implements JSON Web Tokens (JWT) for secure authentication and authorization. Additionally, the project includes features such as email notifications for account credentials and password reset functionality. With a focus on scalability and security, this CRM API provides a reliable foundation for managing various aspects of businesses' operations as consumers. Furthermore, the Twilio API is being utilized for phone number verification purposes. This CRM API offers a comprehensive solution for managing customer interactions, storing contact data, tracking sales, and facilitating internal collaboration within businesses.
 
 ## 👨‍💻 Documentation OpenAPI
 
-- [Postman Collection](https://postman)
-- [OpenAPI Swagger Spec](http://url)
+> Test with `Prod Env`
+- [Review Collections & Documentation](https://postman) 
 
 ## 🤖 General Database Diagram
 
@@ -45,7 +45,7 @@ This database design ensures a structured representation of items, invoices, and
 
 1. Once the dependencies are installed, you can run via IDE or Maven.
 2. Test Endpoints via Postman (or your preferred API tester) on port 9090: `http://localhost:9090/api/v1/...`
-   > Please check the documentation (Postman/Swagger) above to see the available endpoints.
+   > Please check the documentation (Postman/Swagger) above to see the available endpoints and change `Dev Env`
 
 ## 🧪 Unit Tests & Integration Tests (Junit & Mockito)
 The unit tests and integration tests for the critical path of the system can be found in the directory `src/test/java`

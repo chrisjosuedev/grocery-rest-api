@@ -72,7 +72,7 @@ CREATE TABLE `employees` (
 
 LOCK TABLES `employees` WRITE;
 /*!40000 ALTER TABLE `employees` DISABLE KEYS */;
-INSERT INTO `employees` VALUES ('cristhian.martinez@gmail.com','2023-05-10','$2a$10$dJ9G2XH0gni0lHQSxr6T2umR3WR1V60lgoqE9daLGRLN4k/gash0e','ADMIN','admin_system',1),('chris@gerente.com','2023-05-10','$2a$10$HzO9fStWdjVa6g8v.efCiui.kcJTx7er6gnFNQlnHr/zUL.fLNGYe','USER','maria.lopez',2),('cmartinez.lara99@gmail.com','2022-03-02','$2a$10$wOx3Vf9o94N6j3W1AqnFmOGR0F3clTL0nVvcsjp68zpaQPaGF9oPS','ADMIN','cristhian.martinez',3),('cristhian.martinez@ujcv.edu.hn','2023-03-10','$2a$10$AtvstGUJKPJUWqwKX/ghf.1Segl7CKCmE0FAZahSI3twJW3cbzUd.','USER','angel_martinez',7),('chrismartinezlara@outlook.es','2023-03-12','$2a$10$WNMP354xckE.mtLwQUIok.DO6F68sc1mW6wHt2E6JMgEsbn3Q4h2S','USER','marifer_silva',11),('chrisanbeats@gmail.com','2023-03-11','$2a$10$5wvoL8yDjKJe7pjsxlUtXePke/T90KpfRatpRZuR10zJAuJMPO20q','USER','morgan_freeman',13);
+INSERT INTO `employees` VALUES ('random@gmail.com','2023-05-10','$2a$10$dJ9G2XH0gni0lHQSxr6T2umR3WR1V60lgoqE9daLGRLN4k/gash0e','ADMIN','admin_system',1),
 /*!40000 ALTER TABLE `employees` ENABLE KEYS */;
 UNLOCK TABLES;
 

@@ -144,7 +144,7 @@ class InvoiceServiceTest {
     }
 
     @Nested
-    @DisplayName("Invoice Service Test")
+    @DisplayName("Invoice Service Tests")
     class InvoiceServiceImpTest {
         @Test
         @DisplayName("Create a new Invoice")

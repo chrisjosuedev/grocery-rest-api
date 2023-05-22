@@ -1,5 +1,5 @@
 server:
-  port: 9000
+  port: 9090
   servlet:
     context-path: /api/v1/
 
@@ -16,7 +16,7 @@ spring:
           starttls:
             enable: true
   datasource:
-    url: "jdbc:mysql://localhost:3306/grocerydb?allowPublicKeyRetrieval=true&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC"
+    url: jdbc:mysql://localhost:3306/grocerydb?allowPublicKeyRetrieval=true&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
     username: root
     password: admin
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -24,6 +24,8 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+  profiles:
+    active: "JWT_AUTH_ENV"
 
 env:
   MAIL: "${OUTLOOK_EMAIL}"

@@ -44,6 +44,8 @@ This database design ensures a structured representation of items, invoices, and
 ## 🛠 Run
 
 1. Once the dependencies are installed, you can run via IDE or Maven.
+2. Test Endpoints via Postman (or your preferred API tester) on port 9090: `http://localhost:9090/api/v1/...`
+   > Please check the documentation (Postman/Swagger) above to see the available endpoints.
 
 ## 🧪 Unit Tests & Integration Tests (Junit & Mockito)
 The unit tests and integration tests for the critical path of the system can be found in the directory `src/test/java`

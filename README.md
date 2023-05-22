@@ -13,7 +13,7 @@ The Grocery Rest API project is a professional-grade, technically advanced CRM (
 ## 👨‍💻 Documentation OpenAPI
 
 > Test with `Prod Env` or `Dev Env` if your using in your localhost.
-- [Review Collections & Documentation](https://postman) 
+- [Review Collections & Documentation](https://documenter.getpostman.com/view/21748987/2s93m354Jn) 
 
 ## 🤖 General Database Diagram
 

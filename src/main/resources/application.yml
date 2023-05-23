@@ -16,16 +16,13 @@ spring:
           starttls:
             enable: true
   datasource:
-    url: jdbc:mysql://localhost:3306/grocerydb?allowPublicKeyRetrieval=true&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
-    username: root
-    password: admin
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
   profiles:
-    active: JWT_AUTH_ENV,prod
+    active: JWT_AUTH_ENV,dev
 
 env:
   MAIL: "${OUTLOOK_EMAIL}"

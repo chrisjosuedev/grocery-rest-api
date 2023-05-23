@@ -1,0 +1,5 @@
+spring:
+  datasource:
+    url: jdbc:${MYSQL_ADDON_URI_GDB}
+    username: ${MYSQL_ADDON_USER_GDB}
+    password: ${MYSQL_ADDON_PASSWORD_GDB}

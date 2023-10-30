@@ -37,7 +37,7 @@ public class AuthService implements IAuthService {
 
     @Override
     public AuthResponse signIn(SignInDto signInDto) {
-        // Auth Manager manage Login, throws an Exception if Auth Fails
+        // Auth Manager manage Login, throws an Exception (BadCredentialsException) if Auth Fails
         authManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         signInDto.getUsername(),

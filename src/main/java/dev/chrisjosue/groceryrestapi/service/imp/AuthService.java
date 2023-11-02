@@ -47,12 +47,12 @@ public class AuthService implements IAuthService {
 
         Employee employee = employeeHelper.getEmployeeByUsername(signInDto.getUsername());
 
-        // Generate JWT
-        String jwt = jwtService.generateToken(employee);
 
         // Revoke Previous Tokens
         tokenHelper.revokeAllUserTokens(employee);
 
+        // Generate JWT
+        String jwt = jwtService.generateToken(employee);
         // Save token
         tokenHelper.saveToken(jwt, employee, TokenType.BEARER);
 

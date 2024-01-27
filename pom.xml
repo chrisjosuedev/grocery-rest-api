@@ -12,9 +12,9 @@
     <artifactId>grocery-rest-api</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>grocery-rest-api</name>
-    <description>grocery-rest-api</description>
+    <description>RestAPI technically advanced CRM (Customer Relationship Management) designed for small businesses as consumers.</description>
     <properties>
-        <java.version>19</java.version>
+        <java.version>21</java.version>
     </properties>
     <dependencies>
         <dependency>
@@ -52,6 +52,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+            <version>1.18.30</version>
             <optional>true</optional>
         </dependency>
         <dependency>
@@ -105,6 +106,14 @@
             <artifactId>jjwt-jackson</artifactId>
             <version>0.11.5</version>
         </dependency>
+
+        <!-- Swagger OpenAPI Documentation -->
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>2.2.0</version>
+        </dependency>
+
 
         <!-- Test Dependencies -->
         <dependency>

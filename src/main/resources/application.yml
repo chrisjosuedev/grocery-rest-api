@@ -5,16 +5,19 @@ server:
 
 spring:
   mail:
+    default-encoding: UTF-8
     host: smtp.office365.com
     port: 587
-    username: "${OUTLOOK_EMAIL}"
-    password: "${OUTLOOK_PASSWORD}"
+    username: ${OUTLOOK_EMAIL}
+    password: ${OUTLOOK_PASSWORD}
     properties:
       mail:
         smtp:
           auth: true
           starttls:
             enable: true
+    protocol: smtp
+    test-connection: false
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
@@ -25,6 +28,6 @@ spring:
     active: JWT_AUTH_ENV,dev
 
 env:
-  MAIL: "${OUTLOOK_EMAIL}"
+  MAIL: ${OUTLOOK_EMAIL}
 
 

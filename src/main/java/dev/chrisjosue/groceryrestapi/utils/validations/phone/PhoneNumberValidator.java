@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 
 public class PhoneNumberValidator implements ConstraintValidator<Phone, String> {
 
-    @Value("${TWILIO_ACCOUNT_SID}")
+    @Value("${TWILIO_SID}")
     private String twilioAccountSid;
 
     @Value("${TWILIO_AUTH_TOKEN}")
@@ -24,7 +24,7 @@ public class PhoneNumberValidator implements ConstraintValidator<Phone, String> 
     public boolean isValid(String value, ConstraintValidatorContext context) {
         value = value.replaceAll("[\\s()-]", "");
 
-        if ("".equals(value)) {
+        if (value.isEmpty()) {
             return false;
         }
 

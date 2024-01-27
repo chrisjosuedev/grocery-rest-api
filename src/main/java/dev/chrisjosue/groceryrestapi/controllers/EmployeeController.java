@@ -8,6 +8,13 @@ import dev.chrisjosue.groceryrestapi.dto.responses.ResponseHandler;
 import dev.chrisjosue.groceryrestapi.entity.person.Employee;
 import dev.chrisjosue.groceryrestapi.helpers.db.EmployeeHelper;
 import dev.chrisjosue.groceryrestapi.service.IEmployeeService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
@@ -24,10 +31,30 @@ import java.util.List;
 @Validated
 @RequestMapping("/employees")
 @RequiredArgsConstructor
+@Tag(name = "Employees",
+        description = "The following section pertains to employees., allowing saving employees (Only ADMIN users).")
 public class EmployeeController {
     private final IEmployeeService employeeService;
     private final EmployeeHelper employeeHelper;
 
+    @Operation(summary = "Get Employee List.",
+            description = """
+                    Allows you to retrieve a paginated list of employees.\s
+                    The "from" parameter indicates the starting index of the employee list, and the "limit" parameter determines the maximum number of employees to be returned per page.\s
+                    """,
+            security = @SecurityRequirement(name = "bearerAuth"))
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Employees List OK.",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Employee.class))}),
+            @ApiResponse(responseCode = "400",
+                    description = "Employee Data is incorrect",
+                    content = @Content),
+            @ApiResponse(responseCode = "403",
+                    description = "User without authentication.",
+                    content = @Content),
+    })
     @GetMapping
     public ResponseEntity<Object> findAllEmployees(
             @RequestParam(required = false, name = "limit")
@@ -50,6 +77,23 @@ public class EmployeeController {
         );
     }
 
+    @Operation(summary = "Get Employee By Id.",
+            description = """
+                    Accepts the employee ID as a parameter and returns the specific employee associated with that ID.
+                    """,
+            security = @SecurityRequirement(name = "bearerAuth"))
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Employee Found OK.",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Employee.class))}),
+            @ApiResponse(responseCode = "403",
+                    description = "User without authentication.",
+                    content = @Content),
+            @ApiResponse(responseCode = "404",
+                    description = "Employee not found.",
+                    content = @Content),
+    })
     @GetMapping("/{employeeId}")
     public ResponseEntity<Object> findEmployeeById(@PathVariable("employeeId") Long employeeId) {
         return ResponseHandler.responseBuilder(
@@ -59,6 +103,22 @@ public class EmployeeController {
         );
     }
 
+    @Operation(summary = "Create a new Employee.",
+            description = """
+                    Exclusively accessible to an administrator user. Provide the necessary employee data to create a new employee. """,
+            security = @SecurityRequirement(name = "bearerAuth"))
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201",
+                    description = "Employee CREATED.",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Employee.class))}),
+            @ApiResponse(responseCode = "400",
+                    description = "Employee data is incorrect.",
+                    content = @Content),
+            @ApiResponse(responseCode = "403",
+                    description = "User without authentication.",
+                    content = @Content)
+    })
     @PostMapping
     public ResponseEntity<Object> createEmployee(@Valid @RequestBody EmployeeDto employeeDto) {
         return ResponseHandler.responseBuilder(
@@ -68,6 +128,25 @@ public class EmployeeController {
         );
     }
 
+    @Operation(summary = "Update Employee.",
+            description = """
+                    Update using the corresponding endpoint, allowing authorized users to modify employee information """,
+            security = @SecurityRequirement(name = "bearerAuth"))
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Employee Updated OK.",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Employee.class))}),
+            @ApiResponse(responseCode = "403",
+                    description = "User without authentication.",
+                    content = @Content),
+            @ApiResponse(responseCode = "400",
+                    description = "Employee data is incorrect.",
+                    content = @Content),
+            @ApiResponse(responseCode = "404",
+                    description = "Employee not found.",
+                    content = @Content),
+    })
     @PutMapping
     public ResponseEntity<Object> updateEmployee(Principal principal, @Valid @RequestBody EmployeeUpdateDto employeeUpdateDto) {
         Employee loggedEmployee = employeeHelper.getLoggedEmployee(principal);
@@ -78,6 +157,21 @@ public class EmployeeController {
         );
     }
 
+    @Operation(summary = "Update Password Employee.",
+            description = """
+                    Updating Password providing the required information and a valid Bearer token, authorized users can securely update an employee's password while ensuring proper authentication and authorization.
+                    """,
+            security = @SecurityRequirement(name = "bearerAuth"))
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Password Updated OK."),
+            @ApiResponse(responseCode = "400",
+                    description = "Password data is incorrect.",
+                    content = @Content),
+            @ApiResponse(responseCode = "403",
+                    description = "User without authentication.",
+                    content = @Content),
+    })
     @PutMapping("/change-password")
     public ResponseEntity<Object> updateEmployeePassword(Principal principal,
                                                  @Valid @RequestBody UpdatePasswordDto updatePasswordDto) {
@@ -90,6 +184,21 @@ public class EmployeeController {
         );
     }
 
+    @Operation(summary = "Delete Employee.",
+            description = """
+                    Deleting Employee an authorized administrator can remove the employee from the system, ensuring proper management of employee records and maintaining data integrity.
+                    """,
+            security = @SecurityRequirement(name = "bearerAuth"))
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Employee Removed OK."),
+            @ApiResponse(responseCode = "403",
+                    description = "User without authentication.",
+                    content = @Content),
+            @ApiResponse(responseCode = "404",
+                    description = "Employee not found.",
+                    content = @Content),
+    })
     @DeleteMapping("/{employeeId}")
     public ResponseEntity<Object> disableEmployee(@PathVariable("employeeId") Long employeeId) {
         employeeService.disable(employeeId);

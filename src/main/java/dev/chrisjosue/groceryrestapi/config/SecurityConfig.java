@@ -30,9 +30,14 @@ public class SecurityConfig {
                 .csrf()
                 .disable()
                 .authorizeHttpRequests(authz -> authz
-                        .requestMatchers("/actuator/health").permitAll()
-                        .requestMatchers("/auth/signin").permitAll()
-                        .requestMatchers("/auth/forgot-password/recovery").permitAll()
+                        .requestMatchers("/actuator/health",
+                                "/auth/signin",
+                                "/auth/forgot-password/recovery",
+                                "/v3/api-docs/**",
+                                "/configuration/ui",
+                                "/configuration/security",
+                                "/swagger-resources/**",
+                                "/swagger-ui/**").permitAll()
                         .requestMatchers("/auth/forgot-password").hasAuthority("ADMIN")
                         .requestMatchers(HttpMethod.POST, "/employees").hasAuthority("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/employees/**").hasAuthority("ADMIN")

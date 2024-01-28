@@ -69,6 +69,12 @@ public class InvoiceController {
                     description = "Invoice Created.",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = InvoiceResponse.class))}),
+            @ApiResponse(responseCode = "400",
+                    description = "Invoice Data is incorrect.",
+                    content = @Content),
+            @ApiResponse(responseCode = "404",
+                    description = "Invoice Details not Found.",
+                    content = @Content),
             @ApiResponse(responseCode = "403",
                     description = "User without authentication.",
                     content = @Content)

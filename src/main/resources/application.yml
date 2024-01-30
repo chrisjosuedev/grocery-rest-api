@@ -25,7 +25,7 @@ spring:
       ddl-auto: update
     show-sql: true
   profiles:
-    active: JWT_AUTH_ENV,dev
+    active: JWT_AUTH_ENV,prod
 
 env:
   MAIL: ${OUTLOOK_EMAIL}

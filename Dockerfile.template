@@ -1,0 +1,22 @@
+## Build the application
+FROM maven:3.9.5-amazoncorretto-21 AS build
+WORKDIR /app
+COPY pom.xml .
+COPY src ./src
+RUN mvn clean install -DskipTests
+
+## Run the application
+FROM openjdk:21-oracle
+WORKDIR /app
+COPY --from=build /app/target/grocery-rest-api-0.0.1-SNAPSHOT.jar ./grocery-rest-api.jar
+EXPOSE 9090
+
+ENV MYSQL_ADDON_URI_GDB ${MYSQL_ADDON_URI_GDB}
+ENV MYSQL_ADDON_USER_GDB ${MYSQL_ADDON_USER_GDB}
+ENV MYSQL_ADDON_PASSWORD_GDB ${MYSQL_ADDON_PASSWORD_GDB}
+ENV OUTLOOK_EMAIL ${UTLOOK_EMAIL}
+ENV OUTLOOK_PASSWORD ${OUTLOOK_PASSWORD}
+ENV TWILIO_AUTH_TOKEN ${TWILIO_AUTH_TOKENB}
+ENV TWILIO_SID ${TWILIO_SID}
+
+CMD [ "java", "-jar", "grocery-rest-api.jar" ]

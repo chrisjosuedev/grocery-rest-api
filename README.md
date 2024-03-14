@@ -12,7 +12,7 @@ The Grocery Rest API project is a professional-grade, technically advanced CRM (
 
 ## 👨‍💻 Documentation OpenAPI
 
-- [Swagger](http://ec2-3-131-159-8.us-east-2.compute.amazonaws.com:90/api/v1/swagger-ui/index.html#/Article%20Management/findAllArticles)
+- [Swagger](https://grocery-api-tlfh.onrender.com/api/v1/swagger-ui/index.html)
 
 > Test with `Prod Env` or `Dev Env` if your using in your localhost.
 - [Review Collections & Documentation](https://documenter.getpostman.com/view/21748987/2s93m354Jn) 

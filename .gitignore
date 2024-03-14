@@ -1,7 +1,7 @@
 HELP.md
-Dockerfile
 target/
 data/
+src/main/resources/env.properties
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/

@@ -11,9 +11,6 @@
 The Grocery Rest API project is a professional-grade, technically advanced CRM (Customer Relationship Management) designed for small businesses as consumers. It is developed using Spring Boot 3 and utilizes MySQL as its database management system. The API incorporates a robust security module powered by Spring Security, which implements JSON Web Tokens (JWT) for secure authentication and authorization. Additionally, the project includes features such as email notifications for account credentials and password reset functionality. With a focus on scalability and security, this CRM API provides a reliable foundation for managing various aspects of businesses' operations as consumers. Furthermore, the Twilio API is being utilized for phone number verification purposes. This CRM API offers a comprehensive solution for managing customer interactions, storing contact data, tracking sales, and facilitating internal collaboration within businesses.
 
 ## 👨‍💻 Documentation OpenAPI
-
-- [Swagger](https://grocery-api-tlfh.onrender.com/api/v1/swagger-ui/index.html)
-
 > Test with `Prod Env` or `Dev Env` if your using in your localhost.
 - [Review Collections & Documentation](https://documenter.getpostman.com/view/21748987/2s93m354Jn) 
 
